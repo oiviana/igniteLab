@@ -29,7 +29,7 @@ export function Sidebar() {
     const {data} = useQuery<LessonsQueryResponse>(GET_LESSONS_QUERY) //Hook de query do Apollo
 
     return (
-        <aside className="w-[340px] bg-gray-700 p-6 border-l border-gray-600">
+        <aside className="hidden md:block md:w-[280px] lg:w-[340px] bg-gray-700 p-6 border-l border-gray-600">
             <span className="font-bold text-2xl pb-6 mb-6 border-b border-gray-500 block">
                 Cronograma de Aulas
             </span>

@@ -1,7 +1,7 @@
 import { CheckCircle, Lock } from 'phosphor-react';
 import { isPast, format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 //Tipagem das props das Lessons
 interface LessonProps {
@@ -13,6 +13,9 @@ interface LessonProps {
 }
 
 export function Lesson(props: LessonProps) {
+    const {slug} = useParams<{slug:string}>()
+
+
     const lesson = isPast(props.avaliableAt)//Função que pega a data e vê se já passou
     
     //Função que pega uma data e formata
@@ -20,17 +23,19 @@ export function Lesson(props: LessonProps) {
         locale:ptBR
     })
 
+    const isActive = slug === props.slug
+
     return (
         <Link to={`/event/lesson/${props.slug}`} className="group">
             <span className="text-gray-300">
                 {availableDateFormated}
             </span>
 
-            <div className="rounded border border-gray-500 p-4 mt-2 group-hover:border-green-500 transition-colors">
+            <div className={`rounded border border-gray-500 p-4 mt-2 group-hover:border-green-500 transition-colors ${isActive ? 'bg-green-500':''}`}>
                 <header className="flex items-center justify-between">
                     {/* renderização condicional */}
                     {lesson ? (
-                        <span className="flex items-center gap-2 text-sm text-blue-500 font-medium">
+                        <span className={`flex items-center gap-2 text-sm text-blue-500 font-medium ${isActive ? 'text-white':''}`}>
                             <CheckCircle size={20} />
                             Conteúdo Liberado
                         </span>
@@ -50,7 +55,7 @@ export function Lesson(props: LessonProps) {
 
                 </header>
 
-                <strong className="text-gray-200 mt-5 block">
+                <strong className={`mt-5 block ${isActive ? 'text-white':'text-gray-200'}`}>
                     {props.title}
                 </strong>
             </div>

@@ -39,7 +39,8 @@ export function Video(props: VideoProps) {
     const {data} = useQuery<LessonBySlugResponse>(GET_LESSON_BY_SLUG_QUERY,{
         variables:{
             slug: props.lessonSlug
-        }
+        },
+        fetchPolicy: 'no-cache'
     })
     if(!data){
         return(
@@ -60,14 +61,14 @@ export function Video(props: VideoProps) {
                 </div>
             </div>
             <div className="p-8 max-w-[1100px] mx-auto">
-                <div className="flex items-start gap-16">
+                <div className="flex flex-col items-start gap-16 md:flex-row">
 
                     <div className="flex-1">
-                        <h1 className="text-2xl font-bold">
+                        <h1 className="text-2xl font-bold text-center md:text-justify">
                         {data.lesson.title}
                         </h1>
 
-                        <p className="mt-4 text-gray-200 leading-relaxed">
+                        <p className="mt-4 text-gray-200 leading-relaxed text-justify">
                         {data.lesson.description}
                         </p>
 
@@ -104,7 +105,7 @@ export function Video(props: VideoProps) {
 
                 </div>
 
-                <div className="gap-8 mt-20 grid grid-cols-2">
+                <div className="gap-8 mt-20 grid grid-rows-2 lg:grid-cols-2">
 
                     <a href="" className="bg-gray-700 rounded overflow-hidden flex items-stretch gap-6 hover:bg-gray-600 transition-colors">
                         <div className="bg-green-700 h-full p-6 flex items-center">
