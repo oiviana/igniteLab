@@ -1,4 +1,6 @@
 import { CheckCircle, Lock } from 'phosphor-react';
+import { useContext } from "react";
+import { NavContext } from '../context/NavContext';
 import { isPast, format } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import { Link, useParams } from 'react-router-dom';
@@ -13,6 +15,8 @@ interface LessonProps {
 }
 
 export function Lesson(props: LessonProps) {
+    const  {isVisible} = useContext(NavContext);
+
     const {slug} = useParams<{slug:string}>()
 
 
@@ -26,7 +30,7 @@ export function Lesson(props: LessonProps) {
     const isActive = slug === props.slug
 
     return (
-        <Link to={`/event/lesson/${props.slug}`} className="group">
+        <Link to={`/event/lesson/${props.slug}`} className="group" onClick={()=>{isVisible(false)}}>
             <span className="text-gray-300">
                 {availableDateFormated}
             </span>
